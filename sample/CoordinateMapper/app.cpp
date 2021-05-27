@@ -67,7 +67,7 @@ void Kinect::initialize()
         if(mQ.empty()){
             mQ.wait();
         }else{
-            cv::Mat img=popFront();
+            cv::Mat img=mQ.popFront();
             // write to file
         }
     });
