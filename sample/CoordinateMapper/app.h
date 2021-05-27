@@ -8,6 +8,8 @@
 #include <vector>
 
 #include <wrl/client.h>
+#include "threadSafeQueue.hpp"
+#include <thread>
 using namespace Microsoft::WRL;
 
 class Kinect
@@ -36,6 +38,9 @@ private:
     int depthHeight;
     unsigned int depthBytesPerPixel;
     cv::Mat depthMat;
+
+sim::ThreadSafeQ<cv::Mat> mQ;
+std::thread mWriterThread;
 
 public:
     // Constructor

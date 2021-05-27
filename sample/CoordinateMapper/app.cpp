@@ -62,6 +62,15 @@ void Kinect::initialize()
 
     // Wait a Few Seconds until begins to Retrieve Data from Sensor ( about 2000-[ms] )
     std::this_thread::sleep_for( std::chrono::seconds( 2 ) );
+
+    mWriterThread=std::thread([this](){
+        if(mQ.empty()){
+            mQ.wait();
+        }else{
+            cv::Mat img=popFront();
+            // write to file
+        }
+    });
 }
 
 // Initialize Sensor
@@ -278,6 +287,7 @@ inline void Kinect::showColor()
     // Show Image
     cv::imshow( "Color", colorMat );
 #endif
+mQ.pushBack(std::move(colorMat));
 }
 
 // Show Depth
