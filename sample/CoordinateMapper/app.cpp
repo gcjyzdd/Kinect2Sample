@@ -20,6 +20,7 @@ Kinect::Kinect()
 // Destructor
 Kinect::~Kinect()
 {
+    mRunning=false;
     // Finalize
     finalize();
 }
@@ -64,12 +65,14 @@ void Kinect::initialize()
     std::this_thread::sleep_for( std::chrono::seconds( 2 ) );
 
     mWriterThread=std::thread([this](){
-        if(mQ.empty()){
+        while(mRunning){
+                    if(mQ.empty()){
             mQ.wait();
-        }else{
-            cv::Mat img=mQ.popFront();
+        }
+    cv::Mat img=mQ.popFront();
             // write to file
         }
+
     });
 }
 

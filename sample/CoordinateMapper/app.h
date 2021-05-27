@@ -39,6 +39,7 @@ private:
     unsigned int depthBytesPerPixel;
     cv::Mat depthMat;
 
+bool mRunning{true};
 sim::ThreadSafeQ<cv::Mat> mQ;
 std::thread mWriterThread;
 
